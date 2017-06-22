@@ -20,7 +20,8 @@ router.post('/', (req,res) => {
 			if(bcrypt.compareSync(password, user[0].password )){
 				const token = jwt.sign({
 					id: user[0].id,
-					username: user[0].username
+					username: user[0].username,
+					pollId: user[0].pollId
 				}, config.jwtSecret);
 				res.json({ token });
 			} else {
@@ -29,6 +30,11 @@ router.post('/', (req,res) => {
 		} else {
 			res.status(401).json({ errors: { form: 'Invalid Credentials' } });
 		}
+	}).catch(
+	(err) => {
+		let errors = {};
+		res.status(500).json({ errors: {form: 'Username/Email doesn\'t exist'} });
+
 	})
 
 });

@@ -13,6 +13,9 @@ import mongoose from 'mongoose';
 import users from './routes/users';
 import auth from './routes/auth';
 import events from './routes/events';
+
+import data from './routes/data';
+import pollId from './routes/pollId';
 //webpack app
 const compiler = webpack(config)
 const middleware = webpackMiddleware(compiler, {
@@ -32,6 +35,9 @@ const middleware = webpackMiddleware(compiler, {
   app.use('/api/users', users);
   app.use('/api/auth', auth);
   app.use('/api/events', events);
+  //VoteApp
+  app.use('/api/data', data);
+  app.use('/api/pollId', pollId);
 /////
    app.use(middleware)
    app.use(webpackHotMiddleware(compiler))
@@ -39,9 +45,10 @@ const middleware = webpackMiddleware(compiler, {
       res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')))
       res.end()
     })
-
-const dbUrl = "mongodb://localhost:27017/work1";
-mongoose.connect(dbUrl);
+require('dotenv').config();
+const dbUrl = "mongodb://localhost:27017/work1" || process.env.MONGOLAB_URI;
+var mongoOptions = {db: {safe: true}};
+mongoose.connect(dbUrl, mongoOptions);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

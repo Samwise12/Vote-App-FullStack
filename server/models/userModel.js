@@ -14,6 +14,9 @@ var UserSchema = mongoose.Schema({
 	},
 	timezone: {
 		type: String
+	},
+	pollId: {
+		type: Array
 	}
 })
 

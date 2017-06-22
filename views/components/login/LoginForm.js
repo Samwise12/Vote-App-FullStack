@@ -38,8 +38,9 @@ class LoginForm extends React.Component {
 		if (this.isValid()) {
 			this.setState({ errors: {}, isLoading: true });
 			this.props.login(this.state).then(
-				(res) => { 
-					this.setState({ redirect: '/' })
+				(response) => { 
+this.context.router.history.push('/PollPage');					
+				//this.setState({ redirect: '/PollPage' })
 				},
 				(err) => this.setState({ errors: err.response.data.errors, isLoading: false })
 				);

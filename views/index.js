@@ -8,7 +8,8 @@ import jwtDecode from 'jwt-decode';
 
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-import { setCurrentUser } from './actions/authActions';
+import { setCurrentUser} from './actions/authActions';
+import { addPollId } from './actions/voteCheckAction';
 import App from './App';
 
 const store = createStore(
@@ -22,6 +23,8 @@ const store = createStore(
 if (localStorage.jwtToken) {
 setAuthorizationToken(localStorage.jwtToken);
 store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+//console.log(jwtDecode(localStorage.jwtToken).id)
+store.dispatch(addPollId(localStorage.pollId));
 }
 
 ReactDOM.render(<Provider store={store}><Router>
