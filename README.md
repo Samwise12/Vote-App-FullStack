@@ -1,3 +1,1 @@
-﻿# LoginWAuth
- 
- Login (MERN, Redux, Authentication, BareBones)
+﻿# Vote-App-FullStack
